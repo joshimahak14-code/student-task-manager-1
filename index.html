@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Student Task Manager — A premium student productivity dashboard built with pure HTML5 and CSS3. Track tasks, deadlines, subjects, and productivity streaks." />
+  <meta name="keywords" content="student, task manager, productivity, dashboard, HTML, CSS" />
+  <meta name="author" content="Nirmal" />
+  <meta name="theme-color" content="#6366f1" />
+  <title>TaskFlow — Student Productivity Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============ Dark Mode Toggle (hidden checkbox) ============ -->
+<input type="checkbox" id="dark-toggle" aria-label="Toggle dark mode" />
+
+<div class="app-wrapper">
+
+  <!-- Animated background decorations -->
+  <div class="bg-decor bg-decor--1" aria-hidden="true"></div>
+  <div class="bg-decor bg-decor--2" aria-hidden="true"></div>
+  <div class="bg-decor bg-decor--3" aria-hidden="true"></div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" aria-label="Main navigation">
+
+    <!-- Logo -->
+    <div class="sidebar__logo">
+      <div class="sidebar__logo-icon" aria-hidden="true">📋</div>
+      <div class="sidebar__logo-text">
+        TaskFlow
+        <span>Student Edition</span>
+      </div>
+    </div>
+
+    <!-- User Card -->
+    <div class="sidebar__user-card">
+      <div class="sidebar__user-avatar" aria-hidden="true">NS</div>
+      <div class="sidebar__user-info">
+        <div class="sidebar__user-name">ABCD.</div>
+        <div class="sidebar__user-role">B.Tech · Computer Science</div>
+      </div>
+    </div>
+
+    <!-- Main Nav -->
+    <div class="sidebar__section-label">Menu</div>
+    <nav>
+      <ul class="sidebar__nav" role="list">
+        <li>
+          <a href="#dashboard" class="sidebar__nav-item sidebar__nav-item--active">
+            <span class="sidebar__nav-icon" aria-hidden="true">🏠</span>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="#tasks" class="sidebar__nav-item">
+            <span class="sidebar__nav-icon" aria-hidden="true">📋</span>
+            My Tasks
+            <span class="sidebar__badge" aria-label="7 pending tasks">7</span>
+          </a>
+        </li>
+        <li>
+          <a href="#calendar" class="sidebar__nav-item">
+            <span class="sidebar__nav-icon" aria-hidden="true">📅</span>
+            Calendar
+          </a>
+        </li>
+        <li>
+          <a href="#subjects" class="sidebar__nav-item">
+            <span class="sidebar__nav-icon" aria-hidden="true">📚</span>
+            Subjects
+          </a>
+        </li>
+        <li>
+          <a href="#stats" class="sidebar__nav-item">
+            <span class="sidebar__nav-icon" aria-hidden="true">📊</span>
+            Analytics
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Secondary Nav -->
+    <div class="sidebar__section-label">Workspace</div>
+    <nav>
+      <ul class="sidebar__nav" role="list">
+        <li>
+          <a href="#" class="sidebar__nav-item">
+            <span class="sidebar__nav-icon" aria-hidden="true">📁</span>
+            Projects
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar__nav-item">
+            <span class="sidebar__nav-icon" aria-hidden="true">🏷️</span>
+            Tags &amp; Labels
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar__nav-item">
+            <span class="sidebar__nav-icon" aria-hidden="true">📝</span>
+            Quick Notes
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar__nav-item">
+            <span class="sidebar__nav-icon" aria-hidden="true">📤</span>
+            Export
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar__nav-item">
+            <span class="sidebar__nav-icon" aria-hidden="true">⚙️</span>
+            Settings
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Theme Toggle -->
+    <div class="sidebar__theme">
+      <label for="dark-toggle" class="theme-switch" tabindex="0" role="switch" aria-label="Toggle dark mode">
+        <span class="theme-label-light">☀️ Light</span>
+        <span class="theme-toggle-track" aria-hidden="true"></span>
+        <span class="theme-label-dark">🌙 Dark</span>
+      </label>
+    </div>
+
+  </aside>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header">
+    <div class="header__greeting">
+      <h1>Good Morning, ABCD 👋</h1>
+      <p>Stay organized. Stay productive. You've got this!</p>
+    </div>
+
+    <div class="header__search">
+      <span class="header__search-icon" aria-hidden="true">🔍</span>
+      <input
+        type="search"
+        class="header__search-input"
+        placeholder="Search tasks, subjects, notes..."
+        aria-label="Search tasks"
+      />
+      <span class="header__search-shortcut" aria-hidden="true">Ctrl+K</span>
+    </div>
+
+    <div class="header__actions">
+      <div class="header__date" aria-label="Today's date">
+        <span aria-hidden="true">📅</span> Tue, Oct 13, 2026
+      </div>
+
+      <div class="header__notif" data-tooltip="3 Notifications" tabindex="0" role="button" aria-label="3 new notifications">
+        🔔
+        <span class="header__notif-dot" aria-hidden="true"></span>
+      </div>
+
+      <div class="header__profile" tabindex="0" role="button" aria-label="User profile menu">
+        <div class="header__avatar" aria-hidden="true">NS</div>
+        <div class="header__profile-info">
+          <div class="header__profile-name"> ABCD</div>
+          <div class="header__profile-role">Computer Science</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <main class="main" id="dashboard">
+
+    <!-- ───── STATISTICS ───── -->
+    <section aria-labelledby="stats-heading">
+      <div class="stats-header">
+        <h2 class="section-title" id="stats-heading">
+          <span class="section-title__icon" aria-hidden="true">📊</span> Overview
+        </h2>
+        <span class="stats-header__hint">💡 Click or hold any card to filter tasks</span>
+      </div>
+      <div class="stats" role="region" aria-label="Overview statistics and quick filters">
+        <!-- 1. Total Tasks -->
+        <label for="filter-all" class="stat-card stat-card--total" tabindex="0" role="button" aria-label="Total tasks: 24. Click or hold to view all tasks">
+          <div class="stat-card__top">
+            <div class="stat-card__icon" aria-hidden="true">📋</div>
+            <span class="stat-card__pill">All Tasks</span>
+          </div>
+          <div class="stat-card__number">24</div>
+          <div class="stat-card__label">Total Tasks</div>
+          <div class="stat-card__sub">
+            Across 4 subjects
+          </div>
+          <div class="stat-card__action">
+            <span>Show all tasks</span>
+            <span class="stat-card__arrow" aria-hidden="true">→</span>
+          </div>
+        </label>
+
+        <!-- 2. Completed -->
+        <label for="filter-completed" class="stat-card stat-card--done" tabindex="0" role="button" aria-label="Completed tasks: 15. Click or hold to filter completed tasks">
+          <div class="stat-card__top">
+            <div class="stat-card__icon" aria-hidden="true">✅</div>
+            <span class="stat-card__pill">Finished</span>
+          </div>
+          <div class="stat-card__number">15</div>
+          <div class="stat-card__label">Completed</div>
+          <div class="stat-card__sub">
+            <span class="stat-card__trend stat-card__trend--up">↑ 3</span> this week
+          </div>
+          <div class="stat-card__action">
+            <span>Filter completed</span>
+            <span class="stat-card__arrow" aria-hidden="true">→</span>
+          </div>
+        </label>
+
+        <!-- 3. Pending -->
+        <label for="filter-pending" class="stat-card stat-card--pending" tabindex="0" role="button" aria-label="Pending tasks: 7. Click or hold to filter pending tasks">
+          <div class="stat-card__top">
+            <div class="stat-card__icon" aria-hidden="true">⏳</div>
+            <span class="stat-card__pill">In Queue</span>
+          </div>
+          <div class="stat-card__number">7</div>
+          <div class="stat-card__label">Pending</div>
+          <div class="stat-card__sub">
+            4 due this week
+          </div>
+          <div class="stat-card__action">
+            <span>Filter pending</span>
+            <span class="stat-card__arrow" aria-hidden="true">→</span>
+          </div>
+        </label>
+
+        <!-- 4. Overdue -->
+        <label for="filter-high" class="stat-card stat-card--overdue" tabindex="0" role="button" aria-label="Overdue tasks: 2. Click or hold to filter urgent tasks">
+          <div class="stat-card__top">
+            <div class="stat-card__icon" aria-hidden="true">🚨</div>
+            <span class="stat-card__pill">Urgent</span>
+          </div>
+          <div class="stat-card__number">2</div>
+          <div class="stat-card__label">Overdue</div>
+          <div class="stat-card__sub">
+            <span class="stat-card__trend stat-card__trend--down">⚠️</span> Action needed
+          </div>
+          <div class="stat-card__action">
+            <span>Filter urgent</span>
+            <span class="stat-card__arrow" aria-hidden="true">→</span>
+          </div>
+        </label>
+
+        <!-- 5. Completion Rate -->
+        <a href="#overall-progress" class="stat-card stat-card--rate" tabindex="0" role="button" aria-label="Completion rate: 63 percent. Overall progress">
+          <div class="stat-card__top">
+            <div class="stat-card__icon" aria-hidden="true">🎯</div>
+            <span class="stat-card__pill">Target</span>
+          </div>
+          <div class="stat-card__number">63%</div>
+          <div class="stat-card__label">Completion Rate</div>
+          <div class="stat-card__sub">
+            <span class="stat-card__trend stat-card__trend--up">↑ 8%</span> from last week
+          </div>
+          <div class="stat-card__action">
+            <span>View progress</span>
+            <span class="stat-card__arrow" aria-hidden="true">↓</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ───── OVERALL PROGRESS ───── -->
+    <section class="progress-bar-container" id="overall-progress" aria-label="Overall progress">
+      <div class="progress-info">
+        <span class="progress-info__label">📈 Overall Progress</span>
+        <span class="progress-info__value">15 / 24 tasks</span>
+      </div>
+      <div class="progress-track" role="progressbar" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100" aria-label="63% complete">
+        <div class="progress-fill"></div>
+      </div>
+    </section>
+
+    <!-- ───── FILTERS ───── -->
+    <section aria-label="Task filters" id="tasks">
+      <h2 class="section-title">
+        <span class="section-title__icon" aria-hidden="true">📋</span> My Tasks
+        <span class="section-title__count">24 total</span>
+      </h2>
+      <div class="filters" role="radiogroup" aria-label="Filter tasks by status">
+        <input type="radio" name="filter" id="filter-all" class="filter-radio" checked />
+        <label for="filter-all" class="filter-btn">All Tasks</label>
+
+        <input type="radio" name="filter" id="filter-pending" class="filter-radio" />
+        <label for="filter-pending" class="filter-btn">⏳ Pending</label>
+
+        <input type="radio" name="filter" id="filter-progress" class="filter-radio" />
+        <label for="filter-progress" class="filter-btn">🔄 In Progress</label>
+
+        <input type="radio" name="filter" id="filter-completed" class="filter-radio" />
+        <label for="filter-completed" class="filter-btn">✅ Completed</label>
+
+        <input type="radio" name="filter" id="filter-high" class="filter-radio" />
+        <label for="filter-high" class="filter-btn"><span class="filter-btn__dot filter-btn__dot--high" aria-hidden="true"></span> High</label>
+
+        <input type="radio" name="filter" id="filter-medium" class="filter-radio" />
+        <label for="filter-medium" class="filter-btn"><span class="filter-btn__dot filter-btn__dot--medium" aria-hidden="true"></span> Medium</label>
+
+        <input type="radio" name="filter" id="filter-low" class="filter-radio" />
+        <label for="filter-low" class="filter-btn"><span class="filter-btn__dot filter-btn__dot--low" aria-hidden="true"></span> Low</label>
+      </div>
+    </section>
+
+    <!-- ───── TASK LIST ───── -->
+    <section class="tasks" aria-label="Task list">
+
+      <!-- Task 1 — High Priority -->
+      <article class="task-card task-card--high task-card--progress">
+        <input type="checkbox" class="task-checkbox" id="task1" aria-label="Mark complete: Complete Data Structures Assignment" />
+        <div class="task-body">
+          <label for="task1" class="task-title">Complete Data Structures Assignment</label>
+          <p class="task-desc">Learn and implement Binary Search Tree with insertion, deletion, and traversal algorithms. Include time complexity analysis.</p>
+          <div class="task-meta">
+            <span class="task-tag task-tag--subject">📚 Data Structures</span>
+            <span class="task-tag task-tag--priority-high">🔴 High Priority</span>
+            <span class="task-tag task-tag--date">📅 Due Tomorrow</span>
+            <span class="task-tag task-tag--type">📝 Assignment</span>
+            <span class="task-tag task-tag--status">🔄 In Progress</span>
+          </div>
+        </div>
+        <div class="task-actions">
+          <button class="task-action-btn" data-tooltip="Edit task" aria-label="Edit task">✏️</button>
+          <button class="task-action-btn task-action-btn--delete" data-tooltip="Delete task" aria-label="Delete task">🗑️</button>
+        </div>
+      </article>
+
+      <!-- Task 2 — High Priority / Overdue -->
+      <article class="task-card task-card--high task-card--overdue task-card--pending">
+        <input type="checkbox" class="task-checkbox" id="task2" aria-label="Mark complete: DBMS ER Diagram Submission" />
+        <div class="task-body">
+          <label for="task2" class="task-title">DBMS ER Diagram Submission</label>
+          <p class="task-desc">Design the Entity-Relationship diagram for the Library Management System project. Include normalization to 3NF.</p>
+          <div class="task-meta">
+            <span class="task-tag task-tag--subject">🗄️ DBMS</span>
+            <span class="task-tag task-tag--priority-high">🔴 High Priority</span>
+            <span class="task-tag task-tag--overdue">⚠️ Overdue — 1 day</span>
+            <span class="task-tag task-tag--type">📝 Assignment</span>
+          </div>
+        </div>
+        <div class="task-actions">
+          <button class="task-action-btn" data-tooltip="Edit task" aria-label="Edit task">✏️</button>
+          <button class="task-action-btn task-action-btn--delete" data-tooltip="Delete task" aria-label="Delete task">🗑️</button>
+        </div>
+      </article>
+
+      <!-- Task 3 — Medium Priority -->
+      <article class="task-card task-card--medium task-card--pending">
+        <input type="checkbox" class="task-checkbox" id="task3" aria-label="Mark complete: OS Lab Report" />
+        <div class="task-body">
+          <label for="task3" class="task-title">OS Lab Report — Process Scheduling</label>
+          <p class="task-desc">Write the lab report for FCFS, SJF, and Round Robin scheduling algorithm experiments with output analysis.</p>
+          <div class="task-meta">
+            <span class="task-tag task-tag--subject">⚙️ Operating Systems</span>
+            <span class="task-tag task-tag--priority-medium">🟡 Medium Priority</span>
+            <span class="task-tag task-tag--date">📅 Due Oct 15</span>
+            <span class="task-tag task-tag--type">📄 Lab Report</span>
+            <span class="task-tag task-tag--status">⏳ Pending</span>
+          </div>
+        </div>
+        <div class="task-actions">
+          <button class="task-action-btn" data-tooltip="Edit task" aria-label="Edit task">✏️</button>
+          <button class="task-action-btn task-action-btn--delete" data-tooltip="Delete task" aria-label="Delete task">🗑️</button>
+        </div>
+      </article>
+
+      <!-- Task 4 — Medium Priority -->
+      <article class="task-card task-card--medium task-card--progress">
+        <input type="checkbox" class="task-checkbox" id="task4" aria-label="Mark complete: Web Dev Final Project" />
+        <div class="task-body">
+          <label for="task4" class="task-title">Web Dev — Responsive Landing Page</label>
+          <p class="task-desc">Build a mobile-first responsive landing page with CSS Grid, Flexbox, and smooth scroll animations.</p>
+          <div class="task-meta">
+            <span class="task-tag task-tag--subject">💻 Web Development</span>
+            <span class="task-tag task-tag--priority-medium">🟡 Medium Priority</span>
+            <span class="task-tag task-tag--date">📅 Due Oct 20</span>
+            <span class="task-tag task-tag--type">💻 Project</span>
+            <span class="task-tag task-tag--status">🔄 In Progress</span>
+          </div>
+        </div>
+        <div class="task-actions">
+          <button class="task-action-btn" data-tooltip="Edit task" aria-label="Edit task">✏️</button>
+          <button class="task-action-btn task-action-btn--delete" data-tooltip="Delete task" aria-label="Delete task">🗑️</button>
+        </div>
+      </article>
+
+      <!-- Task 5 — Low Priority -->
+      <article class="task-card task-card--low task-card--pending">
+        <input type="checkbox" class="task-checkbox" id="task5" aria-label="Mark complete: CN Revision" />
+        <div class="task-body">
+          <label for="task5" class="task-title">Computer Networks Revision — OSI Model</label>
+          <p class="task-desc">Review all 7 layers of the OSI model and TCP/IP stack. Create concise notes for exam preparation.</p>
+          <div class="task-meta">
+            <span class="task-tag task-tag--subject">🌐 Computer Networks</span>
+            <span class="task-tag task-tag--priority-low">🟢 Low Priority</span>
+            <span class="task-tag task-tag--date">📅 Due Oct 17</span>
+            <span class="task-tag task-tag--type">📖 Revision</span>
+            <span class="task-tag task-tag--status">⏳ Pending</span>
+          </div>
+        </div>
+        <div class="task-actions">
+          <button class="task-action-btn" data-tooltip="Edit task" aria-label="Edit task">✏️</button>
+          <button class="task-action-btn task-action-btn--delete" data-tooltip="Delete task" aria-label="Delete task">🗑️</button>
+        </div>
+      </article>
+
+      <!-- Task 6 — Completed -->
+      <article class="task-card task-card--done task-card--medium">
+        <input type="checkbox" class="task-checkbox" id="task6" checked aria-label="Completed: Web Development Portfolio Page" />
+        <div class="task-body">
+          <label for="task6" class="task-title">Web Development Portfolio Page</label>
+          <p class="task-desc">Built a responsive personal portfolio using HTML5, CSS3, and modern design principles with dark mode.</p>
+          <div class="task-meta">
+            <span class="task-tag task-tag--subject">💻 Web Development</span>
+            <span class="task-tag task-tag--priority-medium">🟡 Medium</span>
+            <span class="task-tag task-tag--date">📅 Oct 10</span>
+            <span class="task-tag task-tag--type">💻 Project</span>
+            <span class="task-tag task-tag--status" style="background:rgba(16,185,129,0.12);">✅ Completed</span>
+          </div>
+        </div>
+        <div class="task-actions">
+          <button class="task-action-btn" data-tooltip="Edit task" aria-label="Edit task">✏️</button>
+          <button class="task-action-btn task-action-btn--delete" data-tooltip="Delete task" aria-label="Delete task">🗑️</button>
+        </div>
+      </article>
+
+      <!-- Task 7 — Completed -->
+      <article class="task-card task-card--done task-card--low">
+        <input type="checkbox" class="task-checkbox" id="task7" checked aria-label="Completed: Linear Algebra Practice" />
+        <div class="task-body">
+          <label for="task7" class="task-title">Linear Algebra — Eigenvalue Problems</label>
+          <p class="task-desc">Solved exercise set 4.3 covering eigenvalues, eigenvectors, diagonalization, and characteristic equations.</p>
+          <div class="task-meta">
+            <span class="task-tag task-tag--subject">📐 Mathematics</span>
+            <span class="task-tag task-tag--priority-low">🟢 Low</span>
+            <span class="task-tag task-tag--date">📅 Oct 8</span>
+            <span class="task-tag task-tag--type">📝 Practice</span>
+            <span class="task-tag task-tag--status" style="background:rgba(16,185,129,0.12);">✅ Completed</span>
+          </div>
+        </div>
+        <div class="task-actions">
+          <button class="task-action-btn" data-tooltip="Edit task" aria-label="Edit task">✏️</button>
+          <button class="task-action-btn task-action-btn--delete" data-tooltip="Delete task" aria-label="Delete task">🗑️</button>
+        </div>
+      </article>
+
+      <!-- Task 8 — Completed -->
+      <article class="task-card task-card--done task-card--high">
+        <input type="checkbox" class="task-checkbox" id="task8" checked aria-label="Completed: DSA Stack Implementation" />
+        <div class="task-body">
+          <label for="task8" class="task-title">DSA — Stack &amp; Queue Implementation</label>
+          <p class="task-desc">Implemented stack using arrays and linked list. Queue with circular buffer. All test cases passing.</p>
+          <div class="task-meta">
+            <span class="task-tag task-tag--subject">📚 Data Structures</span>
+            <span class="task-tag task-tag--priority-high">🔴 High</span>
+            <span class="task-tag task-tag--date">📅 Oct 6</span>
+            <span class="task-tag task-tag--type">💻 Lab</span>
+            <span class="task-tag task-tag--status" style="background:rgba(16,185,129,0.12);">✅ Completed</span>
+          </div>
+        </div>
+        <div class="task-actions">
+          <button class="task-action-btn" data-tooltip="Edit task" aria-label="Edit task">✏️</button>
+          <button class="task-action-btn task-action-btn--delete" data-tooltip="Delete task" aria-label="Delete task">🗑️</button>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- ───── ADD TASK FORM ───── -->
+    <section class="add-task-section" aria-labelledby="add-task-heading" id="add-task">
+      <div class="add-task-section__header">
+        <span aria-hidden="true">➕</span>
+        <h2 id="add-task-heading">Add New Task</h2>
+      </div>
+      <form class="add-task-form" action="#" method="post" aria-label="Add a new task">
+        <div class="form-group">
+          <label for="new-task-title" class="form-label">Task Title *</label>
+          <input type="text" id="new-task-title" class="form-input" placeholder="e.g. Complete DBMS Assignment" required />
+        </div>
+        <div class="form-group">
+          <label for="new-task-subject" class="form-label">Subject *</label>
+          <select id="new-task-subject" class="form-select" required>
+            <option value="" disabled selected>Select subject</option>
+            <option>Data Structures</option>
+            <option>Web Development</option>
+            <option>DBMS</option>
+            <option>Operating Systems</option>
+            <option>Computer Networks</option>
+            <option>Mathematics</option>
+          </select>
+        </div>
+        <div class="form-group form-group--full">
+          <label for="new-task-desc" class="form-label">Description</label>
+          <textarea id="new-task-desc" class="form-textarea" placeholder="Describe what needs to be done..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="new-task-due" class="form-label">Due Date *</label>
+          <input type="date" id="new-task-due" class="form-input" required />
+        </div>
+        <div class="form-group">
+          <label for="new-task-priority" class="form-label">Priority *</label>
+          <select id="new-task-priority" class="form-select" required>
+            <option value="" disabled selected>Select priority</option>
+            <option>🔴 High</option>
+            <option>🟡 Medium</option>
+            <option>🟢 Low</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="new-task-type" class="form-label">Task Type</label>
+          <select id="new-task-type" class="form-select">
+            <option value="" disabled selected>Select type</option>
+            <option>📝 Assignment</option>
+            <option>📄 Lab Report</option>
+            <option>💻 Project</option>
+            <option>📖 Revision</option>
+            <option>📝 Practice</option>
+            <option>📊 Presentation</option>
+            <option>🧪 Experiment</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="new-task-time" class="form-label">Estimated Time</label>
+          <select id="new-task-time" class="form-select">
+            <option value="" disabled selected>Select estimate</option>
+            <option>⚡ 30 minutes</option>
+            <option>🕐 1 hour</option>
+            <option>🕑 2 hours</option>
+            <option>🕒 3 hours</option>
+            <option>🕓 4+ hours</option>
+            <option>📅 Full day</option>
+          </select>
+        </div>
+        <div class="form-submit-row">
+          <button type="reset" class="btn btn--secondary">✕ Cancel</button>
+          <button type="submit" class="btn btn--primary">
+            <span aria-hidden="true">➕</span> Add Task
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ───── SUBJECTS ───── -->
+    <section aria-labelledby="subjects-heading" id="subjects">
+      <h2 class="section-title" id="subjects-heading">
+        <span class="section-title__icon" aria-hidden="true">📚</span> Subjects
+        <span class="section-title__count">4 active</span>
+      </h2>
+      <div class="subjects">
+        <article class="subject-card">
+          <div class="subject-icon subject-icon--ds" aria-hidden="true">📘</div>
+          <div class="subject-info" style="flex:1;">
+            <div class="subject-name">Data Structures</div>
+            <div class="subject-count">8 Tasks · 3 completed</div>
+            <div class="subject-progress">
+              <div class="subject-progress__fill subject-progress__fill--ds"></div>
+            </div>
+          </div>
+        </article>
+        <article class="subject-card">
+          <div class="subject-icon subject-icon--web" aria-hidden="true">💻</div>
+          <div class="subject-info" style="flex:1;">
+            <div class="subject-name">Web Development</div>
+            <div class="subject-count">6 Tasks · 4 completed</div>
+            <div class="subject-progress">
+              <div class="subject-progress__fill subject-progress__fill--web"></div>
+            </div>
+          </div>
+        </article>
+        <article class="subject-card">
+          <div class="subject-icon subject-icon--dbms" aria-hidden="true">🗄️</div>
+          <div class="subject-info" style="flex:1;">
+            <div class="subject-name">DBMS</div>
+            <div class="subject-count">5 Tasks · 3 completed</div>
+            <div class="subject-progress">
+              <div class="subject-progress__fill subject-progress__fill--dbms"></div>
+            </div>
+          </div>
+        </article>
+        <article class="subject-card">
+          <div class="subject-icon subject-icon--os" aria-hidden="true">⚙️</div>
+          <div class="subject-info" style="flex:1;">
+            <div class="subject-name">Operating Systems</div>
+            <div class="subject-count">5 Tasks · 2 completed</div>
+            <div class="subject-progress">
+              <div class="subject-progress__fill subject-progress__fill--os"></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ───── WEEKLY PRODUCTIVITY ───── -->
+    <section class="productivity" aria-labelledby="prod-heading" id="stats">
+      <div class="productivity__header">
+        <h3 class="productivity__title" id="prod-heading">
+          <span aria-hidden="true">📈</span> Weekly Productivity
+        </h3>
+        <span class="productivity__period">This Week</span>
+      </div>
+      <div class="chart" role="img" aria-label="Bar chart showing tasks completed per day this week">
+        <div class="chart__row">
+          <span class="chart__label">Mon</span>
+          <div class="chart__bar-track"><div class="chart__bar-fill chart__bar-fill--mon"></div></div>
+          <span class="chart__value">5</span>
+        </div>
+        <div class="chart__row">
+          <span class="chart__label">Tue</span>
+          <div class="chart__bar-track"><div class="chart__bar-fill chart__bar-fill--tue"></div></div>
+          <span class="chart__value">7</span>
+        </div>
+        <div class="chart__row">
+          <span class="chart__label">Wed</span>
+          <div class="chart__bar-track"><div class="chart__bar-fill chart__bar-fill--wed"></div></div>
+          <span class="chart__value">4</span>
+        </div>
+        <div class="chart__row">
+          <span class="chart__label">Thu</span>
+          <div class="chart__bar-track"><div class="chart__bar-fill chart__bar-fill--thu"></div></div>
+          <span class="chart__value">6</span>
+        </div>
+        <div class="chart__row">
+          <span class="chart__label">Fri</span>
+          <div class="chart__bar-track"><div class="chart__bar-fill chart__bar-fill--fri"></div></div>
+          <span class="chart__value">5</span>
+        </div>
+        <div class="chart__row">
+          <span class="chart__label">Sat</span>
+          <div class="chart__bar-track"><div class="chart__bar-fill chart__bar-fill--sat"></div></div>
+          <span class="chart__value">2</span>
+        </div>
+        <div class="chart__row">
+          <span class="chart__label">Sun</span>
+          <div class="chart__bar-track"><div class="chart__bar-fill chart__bar-fill--sun"></div></div>
+          <span class="chart__value">6</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───── STREAK CARD ───── -->
+    <section class="streak-card" aria-label="Productivity streak">
+      <div class="streak-card__top">
+        <div class="streak-card__fire" aria-hidden="true">🔥</div>
+        <div class="streak-card__number">
+          7 Day Streak
+          <span>Personal Best!</span>
+        </div>
+      </div>
+      <p class="streak-card__text">
+        You've completed tasks for 7 days in a row! Keep up the incredible momentum — you're unstoppable! 🚀
+      </p>
+      <div class="streak-grid" aria-label="Weekly activity: all 7 days active">
+        <div class="streak-dot streak-dot--active" aria-label="Monday active">M</div>
+        <div class="streak-dot streak-dot--active" aria-label="Tuesday active">T</div>
+        <div class="streak-dot streak-dot--active" aria-label="Wednesday active">W</div>
+        <div class="streak-dot streak-dot--active" aria-label="Thursday active">T</div>
+        <div class="streak-dot streak-dot--active" aria-label="Friday active">F</div>
+        <div class="streak-dot streak-dot--active" aria-label="Saturday active">S</div>
+        <div class="streak-dot streak-dot--active" aria-label="Sunday active">S</div>
+      </div>
+    </section>
+
+    <!-- ───── RECENT ACTIVITY ───── -->
+    <section class="activity" aria-labelledby="activity-heading">
+      <h3 class="activity__title" id="activity-heading">
+        <span aria-hidden="true">🕐</span> Recent Activity
+      </h3>
+      <div class="activity__list">
+        <div class="activity__item">
+          <div class="activity__icon activity__icon--complete" aria-hidden="true">✅</div>
+          <div class="activity__text">You completed <strong>Web Dev Portfolio Page</strong></div>
+          <span class="activity__time">2 hours ago</span>
+        </div>
+        <div class="activity__item">
+          <div class="activity__icon activity__icon--edit" aria-hidden="true">✏️</div>
+          <div class="activity__text">Updated priority for <strong>DBMS ER Diagram</strong> to High</div>
+          <span class="activity__time">4 hours ago</span>
+        </div>
+        <div class="activity__item">
+          <div class="activity__icon activity__icon--create" aria-hidden="true">➕</div>
+          <div class="activity__text">Created task <strong>CN Revision — OSI Model</strong></div>
+          <span class="activity__time">Yesterday</span>
+        </div>
+        <div class="activity__item">
+          <div class="activity__icon activity__icon--complete" aria-hidden="true">✅</div>
+          <div class="activity__text">You completed <strong>Linear Algebra — Eigenvalues</strong></div>
+          <span class="activity__time">Yesterday</span>
+        </div>
+        <div class="activity__item">
+          <div class="activity__icon activity__icon--create" aria-hidden="true">➕</div>
+          <div class="activity__text">Created task <strong>OS Lab Report — Scheduling</strong></div>
+          <span class="activity__time">2 days ago</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───── EMPTY STATES ───── -->
+    <section aria-label="Empty state examples">
+      <h2 class="section-title">
+        <span class="section-title__icon" aria-hidden="true">🧩</span> Empty States Preview
+      </h2>
+      <div class="empty-state">
+        <div class="empty-state__icon" aria-hidden="true">🎉</div>
+        <h3 class="empty-state__title">No pending tasks!</h3>
+        <p class="empty-state__desc">You're all caught up. Enjoy your free time or get ahead on upcoming assignments! 🎊</p>
+      </div>
+      <div class="empty-state" style="margin-top:12px;">
+        <div class="empty-state__icon" aria-hidden="true">🔍</div>
+        <h3 class="empty-state__title">No tasks found</h3>
+        <p class="empty-state__desc">Try searching for something else or adjust your filters.</p>
+      </div>
+    </section>
+
+    <!-- ───── FOOTER ───── -->
+    <footer class="footer">
+      <p>© 2026 TaskFlow — Student Task Manager · Built with ❤️ using pure HTML5 &amp; CSS3 · No JavaScript</p>
+    </footer>
+
+  </main>
+
+  <!-- ============ RIGHT SIDEBAR ============ -->
+  <aside class="right-sidebar" aria-label="Upcoming deadlines, calendar, and tools">
+
+    <!-- Study Timer -->
+    <section class="right-sidebar__section">
+      <div class="study-timer">
+        <h2 class="study-timer__title">
+          <span aria-hidden="true">🍅</span> Study Timer
+        </h2>
+        <div class="timer-ring" aria-label="25 minutes remaining in study session">
+          <div class="timer-ring__text">
+            <div class="timer-ring__time">25:00</div>
+            <div class="timer-ring__label">Focus</div>
+          </div>
+        </div>
+        <div class="timer-actions">
+          <button class="timer-btn timer-btn--start">▶ Start</button>
+          <button class="timer-btn">⏸ Pause</button>
+          <button class="timer-btn">↺ Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upcoming Deadlines -->
+    <section class="right-sidebar__section" aria-labelledby="deadlines-heading">
+      <h2 class="right-sidebar__title" id="deadlines-heading">
+        <span aria-hidden="true">⏰</span> Upcoming Deadlines
+      </h2>
+
+      <!-- Today -->
+      <div class="deadline-group">
+        <div class="deadline-day">Today</div>
+        <div class="deadline-item">
+          <span class="deadline-dot deadline-dot--red" aria-hidden="true"></span>
+          <div class="deadline-info">
+            <div class="deadline-name">DBMS ER Diagram</div>
+            <div class="deadline-time">11:59 PM · Overdue</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tomorrow -->
+      <div class="deadline-group">
+        <div class="deadline-day">Tomorrow</div>
+        <div class="deadline-item">
+          <span class="deadline-dot deadline-dot--red" aria-hidden="true"></span>
+          <div class="deadline-info">
+            <div class="deadline-name">DSA Assignment — BST</div>
+            <div class="deadline-time">11:59 PM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thursday -->
+      <div class="deadline-group">
+        <div class="deadline-day">Thursday, Oct 15</div>
+        <div class="deadline-item">
+          <span class="deadline-dot deadline-dot--yellow" aria-hidden="true"></span>
+          <div class="deadline-info">
+            <div class="deadline-name">OS Lab Report</div>
+            <div class="deadline-time">06:00 PM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Friday -->
+      <div class="deadline-group">
+        <div class="deadline-day">Friday, Oct 16</div>
+        <div class="deadline-item">
+          <span class="deadline-dot deadline-dot--green" aria-hidden="true"></span>
+          <div class="deadline-info">
+            <div class="deadline-name">CN Revision — OSI</div>
+            <div class="deadline-time">09:00 PM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Next Week -->
+      <div class="deadline-group">
+        <div class="deadline-day">Next Week</div>
+        <div class="deadline-item">
+          <span class="deadline-dot deadline-dot--blue" aria-hidden="true"></span>
+          <div class="deadline-info">
+            <div class="deadline-name">Web Dev Landing Page</div>
+            <div class="deadline-time">Oct 20 · 11:59 PM</div>
+          </div>
+        </div>
+        <div class="deadline-item">
+          <span class="deadline-dot deadline-dot--green" aria-hidden="true"></span>
+          <div class="deadline-info">
+            <div class="deadline-name">Math Eigenvalue HW</div>
+            <div class="deadline-time">Oct 22 · 05:00 PM</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calendar -->
+    <section class="right-sidebar__section" aria-labelledby="calendar-heading" id="calendar">
+      <h2 class="right-sidebar__title" id="calendar-heading">
+        <span aria-hidden="true">🗓️</span> Calendar
+      </h2>
+      <div class="calendar">
+        <div class="calendar__header">
+          <span class="calendar__month">October 2026</span>
+          <div class="calendar__nav">
+            <button class="calendar__nav-btn" aria-label="Previous month">◀</button>
+            <button class="calendar__nav-btn" aria-label="Next month">▶</button>
+          </div>
+        </div>
+        <div class="calendar__grid" role="grid" aria-label="October 2026 calendar">
+          <!-- Day headers -->
+          <span class="calendar__day-header">Mon</span>
+          <span class="calendar__day-header">Tue</span>
+          <span class="calendar__day-header">Wed</span>
+          <span class="calendar__day-header">Thu</span>
+          <span class="calendar__day-header">Fri</span>
+          <span class="calendar__day-header">Sat</span>
+          <span class="calendar__day-header">Sun</span>
+
+          <!-- Week 1 (Oct 2026 starts on Thursday) -->
+          <span class="calendar__day calendar__day--empty"></span>
+          <span class="calendar__day calendar__day--empty"></span>
+          <span class="calendar__day calendar__day--empty"></span>
+          <span class="calendar__day">1</span>
+          <span class="calendar__day">2</span>
+          <span class="calendar__day">3</span>
+          <span class="calendar__day">4</span>
+
+          <!-- Week 2 -->
+          <span class="calendar__day">5</span>
+          <span class="calendar__day calendar__day--event">6</span>
+          <span class="calendar__day">7</span>
+          <span class="calendar__day calendar__day--event">8</span>
+          <span class="calendar__day">9</span>
+          <span class="calendar__day calendar__day--event">10</span>
+          <span class="calendar__day">11</span>
+
+          <!-- Week 3 (Today = 13) -->
+          <span class="calendar__day calendar__day--event">12</span>
+          <span class="calendar__day calendar__day--today">13</span>
+          <span class="calendar__day calendar__day--event">14</span>
+          <span class="calendar__day calendar__day--event">15</span>
+          <span class="calendar__day calendar__day--event">16</span>
+          <span class="calendar__day">17</span>
+          <span class="calendar__day">18</span>
+
+          <!-- Week 4 -->
+          <span class="calendar__day">19</span>
+          <span class="calendar__day calendar__day--event">20</span>
+          <span class="calendar__day">21</span>
+          <span class="calendar__day calendar__day--exam">22</span>
+          <span class="calendar__day">23</span>
+          <span class="calendar__day">24</span>
+          <span class="calendar__day">25</span>
+
+          <!-- Week 5 -->
+          <span class="calendar__day">26</span>
+          <span class="calendar__day calendar__day--exam">27</span>
+          <span class="calendar__day calendar__day--exam">28</span>
+          <span class="calendar__day">29</span>
+          <span class="calendar__day">30</span>
+          <span class="calendar__day">31</span>
+          <span class="calendar__day calendar__day--empty"></span>
+        </div>
+        <div class="calendar__legend">
+          <span class="calendar__legend-item">
+            <span class="calendar__legend-dot" style="background:var(--primary);" aria-hidden="true"></span>
+            Today
+          </span>
+          <span class="calendar__legend-item">
+            <span class="calendar__legend-dot" style="background:var(--danger);" aria-hidden="true"></span>
+            Deadline
+          </span>
+          <span class="calendar__legend-item">
+            <span class="calendar__legend-dot" style="background:var(--warning);" aria-hidden="true"></span>
+            Exam
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Notes -->
+    <section class="right-sidebar__section">
+      <div class="quick-notes">
+        <h2 class="quick-notes__title">
+          <span aria-hidden="true">📝</span> Quick Notes
+        </h2>
+        <textarea class="quick-notes__input" placeholder="Jot down a quick note..." aria-label="Quick notes"></textarea>
+      </div>
+    </section>
+
+    <!-- Quick Add -->
+    <section class="right-sidebar__section" aria-label="Quick actions">
+      <a href="#add-task" class="btn btn--primary" style="width:100%; justify-content:center; text-decoration:none;">
+        <span aria-hidden="true">➕</span> Add New Task
+      </a>
+    </section>
+
+  </aside>
+
+</div>
+<!-- end .app-wrapper -->
+
+<!-- ============ MOBILE BOTTOM NAV ============ -->
+<nav class="bottom-nav" aria-label="Mobile navigation">
+  <ul class="bottom-nav__list" role="list">
+    <li>
+      <a href="#dashboard" class="bottom-nav__item bottom-nav__item--active">
+        <span class="bottom-nav__icon" aria-hidden="true">🏠</span>
+        Home
+      </a>
+    </li>
+    <li>
+      <a href="#tasks" class="bottom-nav__item">
+        <span class="bottom-nav__icon" aria-hidden="true">📋</span>
+        Tasks
+      </a>
+    </li>
+    <li>
+      <a href="#calendar" class="bottom-nav__item">
+        <span class="bottom-nav__icon" aria-hidden="true">📅</span>
+        Calendar
+      </a>
+    </li>
+    <li>
+      <a href="#stats" class="bottom-nav__item">
+        <span class="bottom-nav__icon" aria-hidden="true">📊</span>
+        Stats
+      </a>
+    </li>
+    <li>
+      <a href="#add-task" class="bottom-nav__item">
+        <span class="bottom-nav__icon" aria-hidden="true">⚙️</span>
+        Settings
+      </a>
+    </li>
+  </ul>
+</nav>
+
+</body>
+</html>
