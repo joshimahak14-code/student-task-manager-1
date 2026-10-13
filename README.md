@@ -40,6 +40,3 @@ Double-click `index.html` to open it in any modern browser (Chrome, Edge, Firefo
 
 ---
 
-## 👤 Author
-
-- **Nirmal** — [@nirmaltodwal7](https://github.com/nirmaltodwal7)
